@@ -31,7 +31,7 @@ public partial class MainWindow : RibbonWindow
             switch ((User32.WindowMessage)msg)
             {
                 case User32.WindowMessage.WM_SETCURSOR:
-                    if (LOWORD(lParam) == -2)
+                    if (LOWORD(lParam) == -2 && (HIWORD(lParam) - 0x200) > 0)
                         handled = true;
                     break;
             }
@@ -43,5 +43,5 @@ public partial class MainWindow : RibbonWindow
         return IntPtr.Zero;
     }
     public static short LOWORD(nint dword) => (short)(dword & 0xFFFF);
-
+    public static short HIWORD(nint dword) => (short)((dword >> 16) & 0xFFFF);
 }
